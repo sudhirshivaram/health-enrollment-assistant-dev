@@ -1,0 +1,68 @@
+# Phase 1: Simple RAG Configuration
+
+# Data Paths
+paths:
+  raw_data: "data/raw"
+  processed_data: "data/processed"
+  faiss_index: "data/processed/index.faiss"
+  metadata: "data/processed/metadata.json"
+
+# PDF Processing
+pdf:
+  parser: "pdfplumber"  # Options: "PyPDF2" or "pdfplumber"
+
+# Text Chunking
+chunking:
+  chunk_size: 500        # Characters per chunk
+  chunk_overlap: 50      # Overlap between chunks (preserves context)
+
+# Embedding Model
+embedding:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  dimension: 384         # Vector dimension
+  device: "cpu"          # Options: "cpu" or "cuda" (if GPU available)
+
+# Retrieval
+retrieval:
+  top_k: 5              # Number of chunks to retrieve
+
+# LLM Configuration
+llm:
+  provider: "gemini"                    # Options: "gemini", "openai", "anthropic"
+  model: "gemini-2.0-flash-exp"         # Gemini model name
+  temperature: 0.3                      # Lower = more focused, Higher = more creative
+  max_tokens: 500                       # Maximum response length
+
+# Prompts
+prompts:
+  system_prompt: |
+    You are a helpful health insurance assistant specializing in Oscar Health Insurance.
+    Your job is to answer questions about drug formularies and coverage policies.
+
+    Guidelines:
+    - Answer based ONLY on the provided context
+    - If information is not in the context, say "I don't have that information"
+    - Always cite your sources (document name and page number)
+    - Be clear and concise
+    - Use simple language, avoid jargon when possible
+
+  user_prompt_template: |
+    Context from insurance documents:
+    {context}
+
+    User question: {query}
+
+    Please answer the question based on the context provided above.
+
+# Gradio UI
+ui:
+  interface: "gradio"
+  port: 7860
+  share: false          # Set to true to create public link
+  title: "Health Enrollment Assistant"
+  description: "Ask questions about drug coverage and insurance policies"
+
+# Logging
+logging:
+  level: "INFO"         # Options: "DEBUG", "INFO", "WARNING", "ERROR"
+  file: "logs/app.log"

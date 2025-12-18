@@ -1,0 +1,20 @@
+# Core RAG Dependencies
+sentence-transformers    # For text embeddings
+faiss-cpu                 # Vector search (CPU version)
+google-generativeai       # Gemini API client
+
+# PDF Processing
+PyPDF2                    # PDF text extraction
+pdfplumber               # Alternative PDF parser (better for tables)
+
+# UI
+gradio                  # Web interface
+
+# Utilities
+python-dotenv            # Load environment variables from .env
+pyyaml                    # Parse config.yaml
+numpy                   # Required by sentence-transformers
+pandas                   # Data manipulation (optional, for analysis)
+
+# Development Tools (optional)
+jupyter                 # For notebooks/exploration
